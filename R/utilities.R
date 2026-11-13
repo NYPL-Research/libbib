@@ -81,23 +81,26 @@ dt_pivot <- function(DT, theby, theexp, percent.cutoff=0, value.name="value",
   if(value.name == percent.name)
     stop("value name and percent name cannot be the same")
 
-  val <- percent <- . <- NULL
+  val <- percent <- thegroup <- . <- NULL
 
   inexp <- substitute(theexp)
   strexp <- as.character(deparse(inexp))
-  template <- sprintf("DT[, .(val=%s), theby][order(-val)]", strexp)
+  template <- sprintf("DT[, .(val=%s), by=c(theby)]", strexp)
   tmp <- eval(parse(text=template))
+  # the names are set by position (here and at the end) so that no
+  # column name in DT can clash with the names used in between
+  setnames(tmp, c("thegroup", "val"))
+  tmp <- tmp[order(-val)]
   thetotal <- tmp[, sum(val)]
   tmp[, percent:=round(val/thetotal*100, 2)]
-  tmp[percent<percent.cutoff, (theby):="OTHER"]
-  tmp <- tmp[, .(val=sum(val), percent=sum(percent)), theby]
+  tmp[percent<percent.cutoff, thegroup:="OTHER"]
+  tmp <- tmp[, .(val=sum(val), percent=sum(percent)), thegroup]
   tmp2 <- tmp[1,]
   tmp2[1,1] <- "TOTAL"
   tmp2[1,2] <- thetotal
   tmp2[1,3] <- 100
   tmp3 <- rbind(tmp, tmp2)
-  setnames(tmp3, "val", value.name)
-  setnames(tmp3, "percent", percent.name)
+  setnames(tmp3, c(theby, value.name, percent.name))
   tmp3
 }
 
@@ -162,7 +165,7 @@ dt_counts_and_percents <- function(DT, group_by_this, percent.cutoff=0,
     warning(sprintf("Column (%s) is not a factor (or character), %s",
                     group_by_this, "copying DT and converting..."))
     DT <- copy(DT)
-    DT[, (group_by_this):=as.factor(get(group_by_this))]
+    set(DT, j=group_by_this, value=as.factor(DT[[group_by_this]]))
   }
 
   tmp <- dt_pivot(DT, group_by_this, .N, percent.cutoff=percent.cutoff,
@@ -284,7 +287,7 @@ dt_set_clean_names <- function(DT, lower=TRUE){
 dt_percent_not_na <- function(DT, acolumn){
   if(!methods::is(DT, "data.table"))
     stop("DT must be a data.table object")
-  DT[, round(100*sum(!is.na(get(acolumn)))/.N, 2)]
+  DT[, round(100*sum(!is.na(.SD[[1]]))/.N, 2), .SDcols=acolumn]
 }
 
 
@@ -331,7 +334,8 @@ dt_na_breakdown <- function(DT, acolumn, big.mark=FALSE){
 
   count <- . <- NULL
 
-  tmp <- dt_pivot(DT[, .(not_na=as.character(!is.na(get(acolumn))))],
+  tmp <- dt_pivot(DT[, .(not_na=as.character(!is.na(.SD[[1]]))),
+                     .SDcols=acolumn],
             "not_na", .N, value.name="count", percent.name="percent")
   if(big.mark!=FALSE)
     tmp[, count:=prettyNum(count, big.mark=big.mark)]

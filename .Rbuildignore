@@ -14,5 +14,6 @@ cran-comments.md
 ^Meta$
 ^planned-enhancements.md$
 ^CRAN-SUBMISSION$
+^Makefile$
 ^tests/testthat/_problems$
 ^tests/testthat/testthat-problems\.rds$

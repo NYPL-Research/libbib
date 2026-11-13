@@ -39,6 +39,11 @@ where the formatting is better.**
 8. Fixed a bug in `fread_plus_date` where a file could not be found if
    its name (or any directory in its path) contained a square bracket.
 
+9. Fixed bugs in `dt_counts_and_percents`, `dt_percent_not_na`, and
+   `dt_na_breakdown` where a column with the same name as one used
+   inside those functions ("val", "percent", "thetotal", "theby",
+   "group_by_this", or "acolumn") caused an error or an incorrect result.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column
