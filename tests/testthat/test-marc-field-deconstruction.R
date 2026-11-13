@@ -37,6 +37,22 @@ test_that("marc_008_get_info() works", {
   expect_equal(as.list(marc_008_get_info(NA)),
                list(pub_date=NA_integer_, pub_place_code=NA_character_,
                     lang_code=NA_character_))
+
+  # complete place and language codes
+  tmp <- marc_008_get_info(c("950622s1970    nyu           000 0 eng d",
+                             "950622s1970    ru            000 0 rus d",
+                             "950622s1970    |||           000 0 ||| d"))
+  expect_equal(tmp[, pub_place_code], c("nyu", "ru", "|||"))
+  expect_equal(tmp[, lang_code], c("eng", "rus", "|||"))
+
+  # blank or incomplete place and language codes
+  full <- "950622s1970    nyu           000 0 eng d"
+  tmp <- marc_008_get_info(c("950622s1970                  000 0     d",
+                             substr(full, 1, 37), substr(full, 1, 17),
+                             "950622s1970", ""))
+  expect_equal(tmp[, pub_date], c(1970, 1970, 1970, 1970, NA))
+  expect_equal(tmp[, pub_place_code], c(NA, "nyu", NA, NA, NA))
+  expect_equal(tmp[, lang_code], rep(NA_character_, 5))
 })
 
 test_that("marc_008_get_info() takes a vector of only NAs", {

@@ -36,6 +36,9 @@ place code, and language code.
 \details{
 If any date element is "unknown" (contains a "u"), the returned
 date is NA. The returned date is always an integer.
+
+If the publication place code or the language code is blank, or if
+the field is too short to contain all of it, the returned code is NA.
 }
 \examples{
 

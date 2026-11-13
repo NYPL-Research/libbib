@@ -74,6 +74,9 @@ marc_leader_get_info <- function(x){
 #' If any date element is "unknown" (contains a "u"), the returned
 #' date is NA. The returned date is always an integer.
 #'
+#' If the publication place code or the language code is blank, or if
+#' the field is too short to contain all of it, the returned code is NA.
+#'
 #' @param x A string (or vector of strings) of MARC 008 fields
 #' @param original.pub.date If \code{TRUE} and if applicable,
 #'                          return the original publication date, not
@@ -135,6 +138,8 @@ marc_008_get_info <- function(x, original.pub.date=FALSE,
     ret[status=="q", pub_date:=NA]
   ret[!stringr::str_detect(pub_date, "^\\d{3,4}$"), pub_date:=NA]
   ret[,pub_date:=as.integer(pub_date)]
+  ret[nchar(x)<18 | pub_place_code=="", pub_place_code:=NA]
+  ret[!stringr::str_detect(lang_code, "^\\S{3}$"), lang_code:=NA]
   ret[,status:=NULL]
   ret[,date2:=NULL]
   ret[]

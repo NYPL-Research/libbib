@@ -103,6 +103,11 @@ where the formatting is better.**
     that is not made up of only digits (after whitespace is removed).
     Previously, a link was made out of any string, including an empty one.
 
+21. `marc_008_get_info` now returns `NA` for a publication place code or
+    a language code that is blank, or that is cut short because the 008
+    field is not long enough. Previously, an empty string, a string of
+    spaces, or a part of a code was returned.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column
