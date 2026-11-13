@@ -5,7 +5,9 @@ where the formatting is better.**
 
 # libbib 1.7 (in development)
 
-1. Nothing yet
+1. Fixed a bug in `normalize_issn` where, if `pretty` was `TRUE`, invalid
+   ISSNs were returned hyphenated (instead of `NA`) and `NA`s were
+   returned as "NA-NA".
 
 # libbib 1.6.4
 

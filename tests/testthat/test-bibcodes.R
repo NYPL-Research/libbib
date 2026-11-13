@@ -372,6 +372,11 @@ test_that("normalize_issn() works", {
                                 "21335212434561X")),
                c("2434561X", NA, "2434561X", "2434561X"))
   expect_equal(normalize_issn(3785955), "03785955")
+  expect_equal(normalize_issn("2434561", pretty=TRUE), "2434-561X")
+  expect_equal(normalize_issn(c("2434-561X", "12345678", NA), pretty=TRUE),
+               c("2434-561X", NA, NA))
+  expect_equal(normalize_issn(c("__2434__561X", NA, "3785955"), pretty=TRUE),
+               c("2434-561X", NA, "0378-5955"))
 })
 
 # ------------------------------------------ #

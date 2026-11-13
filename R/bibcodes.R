@@ -809,7 +809,8 @@ normalize_issn <- function(x, aggressive=TRUE, pretty=FALSE){
   # maybe shouldn't return NA if couldn't be salvaged?
   ret <- ifelse(is_valid_issn(x), x, NA)
   if(pretty)
-    ret <- sprintf("%s-%s", substr(x, 1, 4), substr(x, 5, 8))
+    ret <- ifelse(is.na(ret), NA_character_,
+                  sprintf("%s-%s", substr(ret, 1, 4), substr(ret, 5, 8)))
   return(ret)
 }
 
