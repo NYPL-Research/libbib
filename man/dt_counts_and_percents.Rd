@@ -39,8 +39,9 @@ The percent is a number out of 100
 
 The final row is a total count.
 
-The quoted group-by variable must be a character or factor. If it is
-not, it will be temporarily converted into one and a warning is issued.
+If the quoted group-by variable is not a character or factor (if it is
+a logical or a number, for example), it will be a factor in the returned
+data.table. The supplied data.table is not modified.
 
 The group-by column cannot be named "count" or "percent", since those
 are the names of the other two columns in the result.

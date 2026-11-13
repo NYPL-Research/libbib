@@ -20,6 +20,10 @@ call number (DDC) and returns it's subject description.
 This uses the hundreds place of the DDC number
 and returns the most general subject classification.
 }
+\details{
+A DDC number must begin with exactly three digits. Anything with
+more than three digits at the start is treated as invalid.
+}
 \examples{
 
 get_dewey_decimal_subject_class("709.05")     # Arts

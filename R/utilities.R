@@ -95,6 +95,10 @@ dt_pivot <- function(DT, theby, theexp, percent.cutoff=0, value.name="value",
   # the names are set by position (here and at the end) so that no
   # column name in DT can clash with the names used in between
   setnames(tmp, c("thegroup", "val"))
+  # determine if casting to factor is necessary
+  if(!methods::is(tmp[, thegroup], "character") &&
+     !methods::is(tmp[, thegroup], "factor"))
+    tmp[, thegroup:=as.factor(thegroup)]
   tmp <- tmp[order(-val)]
   thetotal <- tmp[, sum(val)]
   tmp[, percent:=round(val/thetotal*100, 2)]
@@ -124,8 +128,9 @@ dt_pivot <- function(DT, theby, theexp, percent.cutoff=0, value.name="value",
 #'
 #' The final row is a total count.
 #'
-#' The quoted group-by variable must be a character or factor. If it is
-#' not, it will be temporarily converted into one and a warning is issued.
+#' If the quoted group-by variable is not a character or factor (if it is
+#' a logical or a number, for example), it will be a factor in the returned
+#' data.table. The supplied data.table is not modified.
 #'
 #' The group-by column cannot be named "count" or "percent", since those
 #' are the names of the other two columns in the result.
@@ -166,15 +171,6 @@ dt_counts_and_percents <- function(DT, group_by_this, percent.cutoff=0,
     stop("big.mark must either be FALSE or a character type")
 
   count <- NULL
-
-  # determine if casting to factor is necessary
-  if(!methods::is(DT[[group_by_this]], "character") &&
-     !methods::is(DT[[group_by_this]], "factor")) {
-    warning(sprintf("Column (%s) is not a factor (or character), %s",
-                    group_by_this, "copying DT and converting..."))
-    DT <- copy(DT)
-    set(DT, j=group_by_this, value=as.factor(DT[[group_by_this]]))
-  }
 
   tmp <- dt_pivot(DT, group_by_this, .N, percent.cutoff=percent.cutoff,
                   value.name="count", percent.name="percent")

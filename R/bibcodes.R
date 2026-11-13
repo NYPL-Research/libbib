@@ -555,7 +555,7 @@ normalize_isbn_13 <- function(x, aggressive=TRUE){
 #'
 #' normalize_isbn("012491540x")                           # "012491540X"
 #' normalize_isbn("012491540x", convert.to.isbn.13=TRUE)
-#' "9780124915404"
+#' # "9780124915404"
 #'
 #' # vectorized
 #' normalize_isbn(c("513213012491540x245",

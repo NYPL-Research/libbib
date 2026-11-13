@@ -74,6 +74,18 @@ where the formatting is better.**
     two columns with the same name (and `big.mark` had no effect on the
     counts).
 
+15. `dt_counts_and_percents` no longer issues a warning when the column
+    to group by is not a character or a factor (a logical or a number,
+    for example), and no longer makes a copy of the whole data.table in
+    that case. As before, the group-by column in the result is a factor.
+
+16. `get_dewey_decimal_subject_class`, `get_dewey_decimal_subject_division`,
+    and `get_dewey_decimal_subject_section` now return `NA` for anything
+    that begins with more than three digits. Previously, any string
+    starting with three digits was treated as a Dewey Decimal call number;
+    for example, `get_dewey_decimal_subject_class("1984")` returned
+    "Philosophy and psychology".
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

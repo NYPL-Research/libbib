@@ -270,6 +270,9 @@ get_all_lc_call_subject_letters <- function(x, allow.bare=FALSE){
 #' This uses the hundreds place of the DDC number
 #' and returns the most general subject classification.
 #'
+#' A DDC number must begin with exactly three digits. Anything with
+#' more than three digits at the start is treated as invalid.
+#'
 #' @import data.table
 #'
 #' @param x A Dewey Decimal call number
@@ -297,7 +300,7 @@ get_dewey_decimal_subject_class <- function(x){
 
   x <- stringr::str_trim(x)
 
-  where.bad <- !stringr::str_detect(x, "^\\d{3}")
+  where.bad <- !stringr::str_detect(x, "^\\d{3}(\\D|$)")
   x[where.bad] <- NA_character_
 
   x <- stringr::str_pad(stringr::str_sub(x , 1, 1), width=3, pad="0", side="right")
@@ -321,6 +324,9 @@ get_dewey_decimal_subject_class <- function(x){
 #' call number (DDC) and returns it's subject description.
 #' This uses the first two digits of the DDC number
 #' and returns the second most general subject classification.
+#'
+#' A DDC number must begin with exactly three digits. Anything with
+#' more than three digits at the start is treated as invalid.
 #'
 #' @import data.table
 #'
@@ -349,7 +355,7 @@ get_dewey_decimal_subject_division <- function(x){
 
   x <- stringr::str_trim(x)
 
-  where.bad <- !stringr::str_detect(x, "^\\d{3}")
+  where.bad <- !stringr::str_detect(x, "^\\d{3}(\\D|$)")
   x[where.bad] <- NA_character_
 
   x <- stringr::str_pad(stringr::str_sub(x , 1, 2), width=3, pad="0", side="right")
@@ -373,6 +379,9 @@ get_dewey_decimal_subject_division <- function(x){
 #' call number (DDC) and returns it's subject description.
 #' This uses the first three digits of the DDC number
 #' and returns the third most general subject classification.
+#'
+#' A DDC number must begin with exactly three digits. Anything with
+#' more than three digits at the start is treated as invalid.
 #'
 #' @import data.table
 #'
@@ -403,7 +412,7 @@ get_dewey_decimal_subject_section <- function(x){
 
   x <- stringr::str_trim(x)
 
-  where.bad <- !stringr::str_detect(x, "^\\d{3}")
+  where.bad <- !stringr::str_detect(x, "^\\d{3}(\\D|$)")
   x[where.bad] <- NA_character_
 
   x <- stringr::str_sub(x , 1, 3)

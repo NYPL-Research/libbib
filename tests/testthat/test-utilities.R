@@ -94,12 +94,16 @@ test_that("dt_counts_and_percents() works", {
 
   # column that is not a character or a factor
   mt2 <- copy(mt)
-  expect_warning(tmp <- dt_counts_and_percents(mt2, "cyl"),
-    regexp="Column (cyl) is not a factor (or character), copying DT and converting...",
-    fixed=TRUE)
+  expect_warning(tmp <- dt_counts_and_percents(mt2, "cyl"), regexp=NA)
   expect_equal(as.character(tmp[, cyl]), c("8", "4", "6", "TOTAL"))
   expect_equal(tmp[, count], c(14, 11, 7, 32))
   expect_equal(class(mt2[, cyl]), "numeric")
+  expect_warning(tmp <- dt_counts_and_percents(data.table(a=c(TRUE, TRUE, FALSE)),
+                                               "a"),
+    regexp=NA)
+  expect_equal(class(tmp[, a]), "factor")
+  expect_equal(as.character(tmp[, a]), c("TRUE", "FALSE", "TOTAL"))
+  expect_equal(tmp[, count], c(2, 1, 3))
 
   # columns with the same name as something used internally
   # (a column named "theby" that is not the one being grouped by)
@@ -118,8 +122,7 @@ test_that("dt_counts_and_percents() works", {
   expect_equal(tmp[[2]], c(2, 1, 3))
   expect_warning(tmp <- dt_counts_and_percents(data.table(group_by_this=c(1, 1, 2)),
                                                "group_by_this"),
-    regexp="is not a factor (or character)",
-    fixed=TRUE)
+    regexp=NA)
   expect_equal(as.character(tmp[[1]]), c("1", "2", "TOTAL"))
   expect_equal(tmp[[2]], c(2, 1, 3))
 

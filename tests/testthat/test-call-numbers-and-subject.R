@@ -158,6 +158,12 @@ test_that("get_dewey_decimal_subject_class() works", {
                books_serials_etc_sample$dewey_subject_class)
   expect_equal(get_dewey_decimal_subject_class(c("709.05", "invalid", NA, "823.912")),
                c("Arts", NA, NA, "Literature (Belles-lettres) and rhetoric"))
+  expect_equal(get_dewey_decimal_subject_class(c("823/.912", "823M12", "823")),
+               rep("Literature (Belles-lettres) and rhetoric", 3))
+  expect_equal(get_dewey_decimal_subject_class(c("1984", "9780195209204",
+                                                 "823912", "823.912")),
+               c(NA, NA, NA, "Literature (Belles-lettres) and rhetoric"))
+  expect_equal(get_dewey_decimal_subject_class("1984"), NA_character_)
 })
 
 # get_dewey_decimal_subject_division
@@ -166,6 +172,10 @@ test_that("get_dewey_decimal_subject_division() works", {
                books_serials_etc_sample$dewey_subject_division)
   expect_equal(get_dewey_decimal_subject_division(c("709.05", "invalid", NA, "823.912")),
                c("Arts", NA, NA, "English and Old English literatures"))
+  expect_equal(get_dewey_decimal_subject_division(c("1984", "9780195209204",
+                                                    "823912", "823.912")),
+               c(NA, NA, NA, "English and Old English literatures"))
+  expect_equal(get_dewey_decimal_subject_division("1984"), NA_character_)
 })
 
 # get_dewey_decimal_subject_section
@@ -174,6 +184,10 @@ test_that("get_dewey_decimal_subject_section() works", {
                books_serials_etc_sample$dewey_subject_section)
   expect_equal(get_dewey_decimal_subject_section(c("709.05", "invalid", NA, "823.912")),
                c("History, geographic treatment, biography", NA, NA, "English fiction"))
+  expect_equal(get_dewey_decimal_subject_section(c("1984", "9780195209204",
+                                                   "823912", "823.912")),
+               c(NA, NA, NA, "English fiction"))
+  expect_equal(get_dewey_decimal_subject_section("1984"), NA_character_)
 })
 
 
