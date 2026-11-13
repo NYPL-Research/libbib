@@ -213,7 +213,7 @@ normalize_isbn_10 <- function(x, aggressive=TRUE, convert.to.isbn.13=FALSE){
   if(!methods::is(x, "character"))
     x <- as.character(x)
   x <- toupper(x)
-  x <- gsub("[^\\d|X]", "", x, perl=TRUE)
+  x <- gsub("[^\\dX]", "", x, perl=TRUE)
   y <- x
   x <- gsub("X(.+$)", "\\1", x, perl=TRUE)
   is.all.valid <- all(is_valid_isbn_10(x), na.rm=TRUE)
@@ -443,7 +443,7 @@ convert_to_isbn_13 <- function(x, skip.validity.check=FALSE,
     stop("Input must be a character string")
   }
   x <- toupper(x)
-  x <- gsub("[^\\d|X]", "", x, perl=TRUE)
+  x <- gsub("[^\\dX]", "", x, perl=TRUE)
   x <- gsub("X(.+$)", "\\1", x, perl=TRUE)
   if(!skip.validity.check){
     where.bad <- !is_valid_isbn_10(x) & !is.na(x)
@@ -561,7 +561,7 @@ normalize_isbn <- function(x, aggressive=TRUE, convert.to.isbn.13=FALSE){
   if(!methods::is(x, "character"))
     x <- as.character(x)
 
-  x <- gsub("[^\\d|X|x]", "", x, perl=TRUE)
+  x <- gsub("[^\\dXx]", "", x, perl=TRUE)
 
   tried <- normalize_isbn_13(x, aggressive=aggressive)
   where.na <- is.na(tried)
@@ -786,7 +786,7 @@ normalize_issn <- function(x, aggressive=TRUE, pretty=FALSE){
   if(!methods::is(x, "character"))
     x <- as.character(x)
   x <- toupper(x)
-  x <- gsub("[^\\d|X]", "", x, perl=TRUE)
+  x <- gsub("[^\\dX]", "", x, perl=TRUE)
   y <- x
   x <- gsub("X(.+$)", "\\1", x, perl=TRUE)
   is.all.valid <- all(is_valid_issn(x), na.rm=TRUE)

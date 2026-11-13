@@ -44,6 +44,11 @@ where the formatting is better.**
    inside those functions ("val", "percent", "thetotal", "theby",
    "group_by_this", or "acolumn") caused an error or an incorrect result.
 
+10. Fixed a bug in `normalize_isbn_10`, `normalize_isbn`, `normalize_issn`,
+    and `convert_to_isbn_13` where a vertical bar (`|`) in the input was
+    not stripped along with the other non-digit and non-"X" characters.
+    For example, `normalize_isbn("|a0195209206")` returned `NA`.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column
