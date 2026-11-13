@@ -95,6 +95,10 @@ where the formatting is better.**
 18. Fixed a bug in `normalize_lccn` where an LCCN ending in a forward
     slash (with nothing after it) returned `NA`.
 
+19. `marc_leader_get_info` and `marc_008_get_info` now return a row of
+    `NA`s when given a bare `NA` (or a vector of only `NA`s), instead of
+    throwing an error.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

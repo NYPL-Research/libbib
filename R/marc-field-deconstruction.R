@@ -26,6 +26,7 @@
 #'
 #' @export
 marc_leader_get_info <- function(x){
+  if(all(is.na(x))) x <- as.character(x)
   if(!methods::is(x, "character"))
     stop("x must be a string or NA")
 
@@ -114,6 +115,7 @@ marc_leader_get_info <- function(x){
 #' @export
 marc_008_get_info <- function(x, original.pub.date=FALSE,
                               include.questionable.dates=FALSE){
+  if(all(is.na(x))) x <- as.character(x)
   if(!methods::is(x, "character"))
     stop("x must be a string or NA")
 
