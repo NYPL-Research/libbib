@@ -64,6 +64,11 @@ where the formatting is better.**
     `normalize_isbn("3652036395 (v. 123)")` returned "3652036395123".
     `check_isbn_13_check_digit` is unchanged.
 
+13. `dt_keep_cols` now stops with an error (and leaves the data.table
+    unchanged) if any of the specified column names are missing.
+    Previously, it only issued a warning and then removed every column
+    not named, including a column whose name had been misspelled.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

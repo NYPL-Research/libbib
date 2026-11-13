@@ -18,6 +18,10 @@ Returns data.table with only those columns
 Takes a data.table and a quoted sequence of column names
 and removes all columns but the ones specified
 }
+\details{
+If any of the specified column names are missing from the data.table,
+an error is thrown and the data.table is left unchanged.
+}
 \examples{
 mt <- as.data.table(mtcars)
 dt_keep_cols(mt, "mpg", "am", "gear", "carb")

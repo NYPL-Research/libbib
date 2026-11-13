@@ -46,12 +46,22 @@ test_that("dt_keep_cols() works", {
   # the order of the columns in the data.table is kept
   expect_equal(names(dt_keep_cols(copy(mt), "carb", "mpg")),
                c("mpg", "carb"))
-  expect_warning(dt_keep_cols(copy(mt), "mpg", "not_a_column"),
+  expect_error(dt_keep_cols(copy(mt), "mpg", "not_a_column"),
     regexp='Columns ("not_a_column") are missing from supplied data.table',
     fixed=TRUE)
   expect_error(dt_keep_cols(mtcars, "cyl"),
     regexp="DT must be a data.table object",
     fixed=TRUE)
+  one_typo <- copy(mt)
+  expect_error(dt_keep_cols(one_typo, "mpg", "gaer"),
+    regexp='Columns ("gaer") are missing from supplied data.table',
+    fixed=TRUE)
+  expect_equal(names(one_typo), names(mt))
+  all_typos <- copy(mt)
+  expect_error(dt_keep_cols(all_typos, "mgp", "gaer"),
+    regexp='Columns ("mgp", "gaer") are missing from supplied data.table',
+    fixed=TRUE)
+  expect_equal(dim(all_typos), dim(mt))
 })
 
 test_that("dt_counts_and_percents() works", {
@@ -92,10 +102,6 @@ test_that("dt_counts_and_percents() works", {
   expect_equal(class(mt2[, cyl]), "numeric")
 
   # columns with the same name as something used internally
-  tmp <- dt_counts_and_percents(data.table(percent=c("a", "a", "b")),
-                                "percent")
-  expect_equal(tmp[[1]], c("a", "b", "TOTAL"))
-  expect_equal(tmp[[2]], c(2, 1, 3))
   # (a column named "theby" that is not the one being grouped by)
   tmp <- dt_counts_and_percents(data.table(theby=c("x", "x", "x", "y"),
                                            g=c("a", "a", "b", "b")),
@@ -116,6 +122,22 @@ test_that("dt_counts_and_percents() works", {
     fixed=TRUE)
   expect_equal(as.character(tmp[[1]]), c("1", "2", "TOTAL"))
   expect_equal(tmp[[2]], c(2, 1, 3))
+
+  # the column to group by cannot share a name with a column in the result
+  # (but another column in DT can)
+  tmp <- dt_counts_and_percents(data.table(count=c(7, 8, 9),
+                                           g=c("a", "a", "b")),
+                                "g")
+  expect_equal(names(tmp), c("g", "count", "percent"))
+  expect_equal(tmp[, count], c(2, 1, 3))
+  expect_error(dt_counts_and_percents(data.table(percent=c("a", "a", "b")),
+                                      "percent"),
+    regexp='column to group by cannot be named "percent"',
+    fixed=TRUE)
+  expect_error(dt_counts_and_percents(data.table(count=c("a", "a", "b")),
+                                      "count"),
+    regexp='column to group by cannot be named "count"',
+    fixed=TRUE)
 
   expect_error(dt_counts_and_percents(iris, "Species"),
     regexp="DT must be a data.table object",

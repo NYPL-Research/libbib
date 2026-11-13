@@ -36,6 +36,9 @@ dt_del_cols <- function(DT, ...){
 #' Takes a data.table and a quoted sequence of column names
 #' and removes all columns but the ones specified
 #'
+#' If any of the specified column names are missing from the data.table,
+#' an error is thrown and the data.table is left unchanged.
+#'
 #' @import data.table
 #'
 #' @param DT A data.table
@@ -55,8 +58,8 @@ dt_keep_cols <- function(DT, ...){
   badp <- setdiff(cols, names(DT))
   if(length(badp)){
     missingnames <- paste(sprintf('"%s"', badp), collapse=', ')
-    warning(sprintf("Columns (%s) are missing from supplied data.table",
-                    missingnames))
+    stop(sprintf("Columns (%s) are missing from supplied data.table",
+                 missingnames))
   }
   these <- setdiff(names(DT), cols)
   dt_del_cols(DT, these)
