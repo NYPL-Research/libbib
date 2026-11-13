@@ -46,6 +46,7 @@ not, it will be temporarily converted into one and a warning is issued.
 
 iris_dt <- as.data.table(iris)
 dt_counts_and_percents(iris_dt, "Species")
+
 mt <- as.data.table(mtcars)
 mt[, cyl:=factor(cyl)]
 dt_counts_and_percents(mt, "cyl")

@@ -143,7 +143,7 @@ dt_pivot <- function(DT, theby, theexp, percent.cutoff=0, value.name="value",
 #'
 #' iris_dt <- as.data.table(iris)
 #' dt_counts_and_percents(iris_dt, "Species")
-#
+#'
 #' mt <- as.data.table(mtcars)
 #' mt[, cyl:=factor(cyl)]
 #' dt_counts_and_percents(mt, "cyl")
@@ -202,11 +202,11 @@ dt_counts_and_percents <- function(DT, group_by_this, percent.cutoff=0,
 #' ejemplo <- iris
 #' names(ejemplo) <- c("Sepal Length", "Sepal@Width", "Petal	Length",
 #'                     "Petal\\nWidth", "Spêcies")
-# get_clean_names(ejemplo)
-#' # c("sepal_length" "sepal_width"  "petallength"  "petal_nwidth" "sp_cies")
+#' get_clean_names(ejemplo)
+#' # c("sepal_length" "sepal_width"  "petal_length" "petal_nwidth" "sp_cies")
 #'
-# get_clean_names(ejemplo, lower=FALSE)
-#' # c("Sepal_Length" "Sepal_Width"  "PetalLength"  "Petal_nWidth" "Sp_cies")
+#' get_clean_names(ejemplo, lower=FALSE)
+#' # c("Sepal_Length" "Sepal_Width"  "Petal_Length" "Petal_nWidth" "Sp_cies")
 #'
 #' @export
 get_clean_names <- function(dat, lower=TRUE){

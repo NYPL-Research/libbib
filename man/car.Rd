@@ -21,8 +21,6 @@ Originally for use as a reduction function in \code{split_map_filter_reduce}
 }
 \examples{
 car(c(8, 6, 7, 5, 3, 0, 9))      # 8
-mt <- as.data.table(mtcars)
-dt_del_cols(mt, "cyl", "disp", "hp")
 
 }
 \seealso{

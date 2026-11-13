@@ -28,6 +28,7 @@ lambda(c(8, 6, 7))                               # "8;6;7"
 
 # directly
 recombine_with_sep_closure()(c(8,6,7))           #  "8;6;7"
+
 lambda <- recombine_with_sep_closure(" ")
 lambda(c("this", "that", NA,"the-other"))        # "this that NA the-other"
 

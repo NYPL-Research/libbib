@@ -15,11 +15,9 @@ Description: Provides functions for validating and normalizing bibliographic
 License: GPL-3
 Depends: R (>= 3.5.0), data.table, utils
 Imports: curl, methods, pbapply, stringr, xml2
-Suggests: assertr, testthat, knitr, magrittr, rmarkdown
+Suggests: assertr (>= 3.1.0), testthat, knitr, magrittr, rmarkdown, R.utils
 Encoding: UTF-8
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-05-05 13:51:08 UTC; tonyfischetti
-Author: Tony Fischetti [aut, cre]
 URL: https://github.com/NYPL/libbib
 Config/roxygen2/version: 8.1.1

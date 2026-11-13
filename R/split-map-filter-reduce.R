@@ -17,8 +17,6 @@
 #'
 #' @examples
 #' car(c(8, 6, 7, 5, 3, 0, 9))      # 8
-#' mt <- as.data.table(mtcars)
-#' dt_del_cols(mt, "cyl", "disp", "hp")
 #'
 #' @export
 car <- function(x){
@@ -81,7 +79,7 @@ remove_duplicates_and_nas <- function(x){
 #'
 #' # directly
 #' recombine_with_sep_closure()(c(8,6,7))           #  "8;6;7"
-#
+#'
 #' lambda <- recombine_with_sep_closure(" ")
 #' lambda(c("this", "that", NA,"the-other"))        # "this that NA the-other"
 #'

@@ -55,18 +55,18 @@ everything will work just fine! But you might want to look into it!
 > normalize_lccn(" 79139101 /AC/r932")
 [1] "79139101"
 
-> # Do a WorldCat APU search on 19th century materials on ethics
+> # Do a WorldCat API search on 19th century materials on ethics
 > # (Dewey code 170s / LC Call prefix BJ)
 > results <- worldcat_api_search('($dewey="17*" or $lc_call="bj*")
 +                                    and srw.yr="18*"')
-> results[,.(oclc, title, result_number, num_results)][1:5]
-        oclc                                       title result_number num_results
-      <char>                                      <char>         <int>      <char>
-1:   8665856 The principles of moral and political ph...             1        1716
-2: 191264919                The economy of human life. /             2        1716
-3:  22571399                                   Solitude:             3        1716
-4:  65250134 The theory of moral sentiments, or, An e...             4        1716
-5:  13106952    Letters on the improvement of the mind :             5        1716
+> results[,.(oclc, title, result_number, total_wc_results)][1:5]
+        oclc                                       title result_number total_wc_results
+      <char>                                      <char>         <int>           <char>
+1:   8665856 The principles of moral and political ph...             1             1716
+2: 191264919                The economy of human life. /             2             1716
+3:  22571399                                   Solitude:             3             1716
+4:  65250134 The theory of moral sentiments, or, An e...             4             1716
+5:  13106952    Letters on the improvement of the mind :             5             1716
 
 > worldcat_api_bib_read_info_by_isbn("9780984201006")
         oclc          isbn   issn                        title

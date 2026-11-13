@@ -19,9 +19,6 @@ check:
 check_doc:
 	Rscript -e 'devtools::check_man()'
 
-check_rhub:
-	Rscript -e 'devtools::check_rhub()'
-
 check_win_devel:
 	Rscript -e 'devtools::check_win_devel()'
 
@@ -32,7 +29,7 @@ check_win_oldrelease:
 	Rscript -e 'devtools::check_win_oldrelease()'
 
 build_vignettes:
-	Rscript -e 'devtools::build_vignettes()'
+	Rscript -e 'devtools::load_all("."); rmarkdown::render("vignettes/using-the-worldcat-search-api.Rmd", output_dir = "doc")'
 
 build_manual:
 	Rscript -e 'devtools::build_manual()'
