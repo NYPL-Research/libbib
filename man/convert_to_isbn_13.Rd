@@ -20,6 +20,8 @@ Returns ISBN 13 as a string
 }
 \description{
 Takes a string representation of an ISBN 10 and converts it to an ISBN 13.
+All non-digit and non-"X" characters (and any "X" that directly follows
+a letter, since it is part of a word) are stripped first.
 }
 \examples{
 

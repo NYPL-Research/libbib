@@ -176,7 +176,8 @@ attr(is_valid_isbn_10, "assertr_vectorized") <- TRUE
 #' Attempt to enforce validity and canonical form to ISBN 10
 #'
 #' Takes a string representation of an ISBN 10. Strips all non-digit
-#' and non-"X" characters and checks if it is valid (whether the
+#' and non-"X" characters (and any "X" that directly follows a letter,
+#' since it is part of a word) and checks if it is valid (whether the
 #' check digit works out, etc). User can specify whether "aggressive"
 #' measures should be taken to salvage the malformed ISBN 10 string.
 #'
@@ -204,6 +205,10 @@ attr(is_valid_isbn_10, "assertr_vectorized") <- TRUE
 #' normalize_isbn_10("012491540x", convert.to.isbn.13=TRUE)
 #' # "9780124915404"
 #' normalize_isbn_10("513213012491540x")              # "012491540X"
+#'
+#' # the "x" in "Oxford" is not mistaken for a check digit
+#' normalize_isbn_10("0195209206 (Oxford University Press)")
+#' # "0195209206"
 #'
 #' @seealso \code{\link{normalize_isbn}} \code{\link{normalize_isbn_13}}
 #'
@@ -419,6 +424,8 @@ attr(is_valid_isbn_13, "assertr_vectorized") <- TRUE
 #' Convert ISBN 10 to ISBN 13
 #'
 #' Takes a string representation of an ISBN 10 and converts it to an ISBN 13.
+#' All non-digit and non-"X" characters (and any "X" that directly follows
+#' a letter, since it is part of a word) are stripped first.
 #'
 #' @param x A string of 10 digits or 9 digits with terminal "X"
 #' @param skip.validity.check Skip the checking for whether the ISBN 10 is valid
@@ -554,6 +561,10 @@ normalize_isbn_13 <- function(x, aggressive=TRUE){
 #'                  NA,
 #'                  "97815724115799781572411579"))
 #' # "012491540X", "9789668197918", NA, "9781572411579"
+#'
+#' # the "x" in "Oxford" is not mistaken for a check digit
+#' normalize_isbn("0195209206 (Oxford University Press)")
+#' # "0195209206"
 #'
 #' @seealso \code{\link{normalize_isbn_10}} \code{\link{normalize_isbn_13}}
 #'
@@ -745,7 +756,8 @@ attr(is_valid_issn, "assertr_vectorized") <- TRUE
 #' Attempt to enforce validity and canonical form to ISSN
 #'
 #' Takes a string representation of an ISSN. Strips all non-digit
-#' and non-"X" characters and checks if it is valid (whether the
+#' and non-"X" characters (and any "X" that directly follows a letter,
+#' since it is part of a word) and checks if it is valid (whether the
 #' check digit works out, etc). User can specify whether "aggressive"
 #' measures should be taken to salvage the malformed ISSN string.
 #'
@@ -782,6 +794,9 @@ attr(is_valid_issn, "assertr_vectorized") <- TRUE
 #' # vectorized
 #' normalize_issn(c("__2434__561X", "2434561", "21335212434561X"))
 #' # "2434561X" "2434561X" "2434561X"
+#'
+#' # the "x" in "Excerpta" is not mistaken for a check digit
+#' normalize_issn("1000-0054 (Excerpta)")             # "10000054"
 #'
 #' @export
 normalize_issn <- function(x, aggressive=TRUE, pretty=FALSE){

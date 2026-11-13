@@ -48,6 +48,10 @@ normalize_isbn(c("513213012491540x245",
                  "97815724115799781572411579"))
 # "012491540X", "9789668197918", NA, "9781572411579"
 
+# the "x" in "Oxford" is not mistaken for a check digit
+normalize_isbn("0195209206 (Oxford University Press)")
+# "0195209206"
+
 }
 \seealso{
 \code{\link{normalize_isbn_10}} \code{\link{normalize_isbn_13}}

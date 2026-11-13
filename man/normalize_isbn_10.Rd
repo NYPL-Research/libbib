@@ -23,7 +23,8 @@ Returns valid ISBN 10 if possible, NA if not
 }
 \description{
 Takes a string representation of an ISBN 10. Strips all non-digit
-and non-"X" characters and checks if it is valid (whether the
+and non-"X" characters (and any "X" that directly follows a letter,
+since it is part of a word) and checks if it is valid (whether the
 check digit works out, etc). User can specify whether "aggressive"
 measures should be taken to salvage the malformed ISBN 10 string.
 }
@@ -42,6 +43,10 @@ normalize_isbn_10("012491540x xe32ea")             # "012491540X"
 normalize_isbn_10("012491540x", convert.to.isbn.13=TRUE)
 # "9780124915404"
 normalize_isbn_10("513213012491540x")              # "012491540X"
+
+# the "x" in "Oxford" is not mistaken for a check digit
+normalize_isbn_10("0195209206 (Oxford University Press)")
+# "0195209206"
 
 }
 \seealso{

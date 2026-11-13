@@ -26,7 +26,7 @@ It salvaged almost half a million previously unusable ISBNs, bringing
 the number of usable ISBNs (for matching, cataloging, etc...) from
 less than 90% to 99.6%!
 
-As for robustness, this package is well tested, with over 300
+As for robustness, this package is well tested, with over 450
 automated tests, at time of writing.
 
 `data.table` is a hard dependency of this package. Using `data.table`

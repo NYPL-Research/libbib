@@ -23,7 +23,8 @@ Returns valid ISSN if possible, NA if not
 }
 \description{
 Takes a string representation of an ISSN. Strips all non-digit
-and non-"X" characters and checks if it is valid (whether the
+and non-"X" characters (and any "X" that directly follows a letter,
+since it is part of a word) and checks if it is valid (whether the
 check digit works out, etc). User can specify whether "aggressive"
 measures should be taken to salvage the malformed ISSN string.
 }
@@ -51,5 +52,8 @@ normalize_issn("21335212434561X")                  # "2434561X"
 # vectorized
 normalize_issn(c("__2434__561X", "2434561", "21335212434561X"))
 # "2434561X" "2434561X" "2434561X"
+
+# the "x" in "Excerpta" is not mistaken for a check digit
+normalize_issn("1000-0054 (Excerpta)")             # "10000054"
 
 }
