@@ -45,7 +45,7 @@ marc_leader_get_info <- function(x){
                        record_type=="o", "Kit",
                        record_type=="p", "Mixed materials",
                        record_type=="r", "Three-dimensional artifact or naturally occurring object",
-                       record_type=="t", "Manuscript language material ",
+                       record_type=="t", "Manuscript language material",
                        default=NA)
 
   bib_level <- fcase(bib_level=="a", "Monographic component part",

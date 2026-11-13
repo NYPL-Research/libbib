@@ -9,6 +9,8 @@ test_that("marc_leader_get_info() works", {
                books_serials_etc_sample[,record_type])
   expect_equal(books_serials_etc_sample[, marc_leader_get_info(marc_leader)][,bib_level],
                books_serials_etc_sample[,bib_level])
+  expect_equal(marc_leader_get_info("00000ctm a2200000Ma 4500")[,record_type],
+               "Manuscript language material")
 })
 
 # marc_008_get_info

@@ -33,6 +33,9 @@ where the formatting is better.**
    given a file name with no extension. Previously, `fwrite_plus_date`
    would write a file with "NA" at the end of its name.
 
+7. `marc_leader_get_info` no longer returns the record type
+   "Manuscript language material" with a trailing space.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column
