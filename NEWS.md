@@ -41,8 +41,8 @@ where the formatting is better.**
 
 9. Fixed bugs in `dt_counts_and_percents`, `dt_percent_not_na`, and
    `dt_na_breakdown` where a column with the same name as one used
-   inside those functions ("val", "percent", "thetotal", "theby",
-   "group_by_this", or "acolumn") caused an error or an incorrect result.
+   inside those functions ("val", "thetotal", "theby", "group_by_this",
+   or "acolumn") caused an error or an incorrect result.
 
 10. Fixed a bug in `normalize_isbn_10`, `normalize_isbn`, `normalize_issn`,
     and `convert_to_isbn_13` where a vertical bar (`|`) in the input was
@@ -68,6 +68,11 @@ where the formatting is better.**
     unchanged) if any of the specified column names are missing.
     Previously, it only issued a warning and then removed every column
     not named, including a column whose name had been misspelled.
+
+14. `dt_counts_and_percents` now stops with an error if the column to
+    group by is named "count" or "percent". Previously, the result had
+    two columns with the same name (and `big.mark` had no effect on the
+    counts).
 
 # libbib 1.6.4
 

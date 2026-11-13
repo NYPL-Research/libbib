@@ -83,6 +83,8 @@ dt_pivot <- function(DT, theby, theexp, percent.cutoff=0, value.name="value",
                      percent.name="percent_count"){
   if(value.name == percent.name)
     stop("value name and percent name cannot be the same")
+  if(theby %in% c(value.name, percent.name))
+    stop(sprintf('column to group by cannot be named "%s"', theby))
 
   val <- percent <- thegroup <- . <- NULL
 
@@ -124,6 +126,9 @@ dt_pivot <- function(DT, theby, theexp, percent.cutoff=0, value.name="value",
 #'
 #' The quoted group-by variable must be a character or factor. If it is
 #' not, it will be temporarily converted into one and a warning is issued.
+#'
+#' The group-by column cannot be named "count" or "percent", since those
+#' are the names of the other two columns in the result.
 #'
 #' @import data.table
 #'

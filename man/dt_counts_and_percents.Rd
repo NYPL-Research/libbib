@@ -41,6 +41,9 @@ The final row is a total count.
 
 The quoted group-by variable must be a character or factor. If it is
 not, it will be temporarily converted into one and a warning is issued.
+
+The group-by column cannot be named "count" or "percent", since those
+are the names of the other two columns in the result.
 }
 \examples{
 
