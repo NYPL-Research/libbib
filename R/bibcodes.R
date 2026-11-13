@@ -250,7 +250,7 @@ normalize_isbn_10 <- function(x, aggressive=TRUE, convert.to.isbn.13=FALSE){
 
   }
   # maybe shouldn't return NA if couldn't be salvaged?
-  ret <- ifelse(is_valid_isbn_10(x), x, NA)
+  ret <- ifelse(is_valid_isbn_10(x), x, NA_character_)
   if(convert.to.isbn.13)
     return(convert_to_isbn_13(ret, skip.validity.check=TRUE))
   return(ret)
@@ -437,7 +437,7 @@ convert_to_isbn_13 <- function(x, skip.validity.check=FALSE,
   first9 <- substr(x, 1, 9)
   first12 <- ifelse(!is.na(first9), sprintf("978%s", first9), NA)
   newcheckdigit <- get_isbn_13_check_digit(as.character(first12))
-  newisbn13 <- ifelse(!is.na(first12), sprintf("%s%s", first12, newcheckdigit), NA)
+  newisbn13 <- ifelse(!is.na(first12), sprintf("%s%s", first12, newcheckdigit), NA_character_)
   return(newisbn13)
 }
 
@@ -492,7 +492,7 @@ normalize_isbn_13 <- function(x, aggressive=TRUE){
     }
   }
   # maybe shouldn't return NA if couldn't be salvaged?
-  ret <- ifelse(is_valid_isbn_13(x), x, NA)
+  ret <- ifelse(is_valid_isbn_13(x), x, NA_character_)
   return(ret)
 }
 
@@ -807,7 +807,7 @@ normalize_issn <- function(x, aggressive=TRUE, pretty=FALSE){
 
   }
   # maybe shouldn't return NA if couldn't be salvaged?
-  ret <- ifelse(is_valid_issn(x), x, NA)
+  ret <- ifelse(is_valid_issn(x), x, NA_character_)
   if(pretty)
     ret <- ifelse(is.na(ret), NA_character_,
                   sprintf("%s-%s", substr(ret, 1, 4), substr(ret, 5, 8)))

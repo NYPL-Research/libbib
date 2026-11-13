@@ -120,6 +120,9 @@ test_that("is_valid_lc_call() works", {
   expect_equal(is_valid_lc_call("KDC", allow.bare=TRUE), TRUE)
   expect_equal(is_valid_lc_call("K"), FALSE)
   expect_equal(is_valid_lc_call("K", allow.bare=TRUE), TRUE)
+  expect_equal(is_valid_lc_call(NA), NA)
+  expect_equal(is_valid_lc_call(c(NA, NA)), c(NA, NA))
+  expect_error(is_valid_lc_call(123), "Input must be a character string")
 })
 
 # get_lc_call_first_letter
@@ -130,9 +133,9 @@ test_that("get_lc_call_first_letter() works", {
   expect_equal(get_lc_call_first_letter("\tH29.S75 A38"), "H")
   expect_equal(get_lc_call_first_letter("Pk3798.K74 C33 1963"), "P")
   expect_equal(get_lc_call_first_letter("KKT5674.18 .P75 1986"), "K")
-  expect_equal(get_lc_call_first_letter("KDC"), NA)
+  expect_equal(get_lc_call_first_letter("KDC"), NA_character_)
   expect_equal(get_lc_call_first_letter("KDC", allow.bare=TRUE), "K")
-  expect_equal(get_lc_call_first_letter("K"), NA)
+  expect_equal(get_lc_call_first_letter("K"), NA_character_)
   expect_equal(get_lc_call_first_letter("K", allow.bare=TRUE), "K")
 })
 
@@ -144,7 +147,7 @@ test_that("get_all_lc_call_subject_letters() works", {
   expect_equal(get_all_lc_call_subject_letters("Pk3798.K74 C33 1963"), "PK")
   expect_equal(get_all_lc_call_subject_letters(" Pk3798.K74 C33 1963"), "PK")
   expect_equal(get_all_lc_call_subject_letters("KKT5674.18 .P75 1986"), "KKT")
-  expect_equal(get_all_lc_call_subject_letters("KDC"), NA)
+  expect_equal(get_all_lc_call_subject_letters("KDC"), NA_character_)
   expect_equal(get_all_lc_call_subject_letters("KDC", allow.bare=TRUE), "KDC")
 })
 

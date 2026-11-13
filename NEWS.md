@@ -14,6 +14,13 @@ where the formatting is better.**
    `check_issn_check_digit` now return a logical `NA` (instead of a
    character `NA`) when every element of the input is `NA`.
 
+3. `normalize_isbn_10`, `normalize_isbn_13`, `normalize_isbn`,
+   `normalize_issn`, and `convert_to_isbn_13` now return a character `NA`
+   (instead of a logical `NA`) when every element of the input is invalid.
+   The same goes for `get_lc_call_first_letter` and
+   `get_all_lc_call_subject_letters` when given a single invalid call
+   number.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

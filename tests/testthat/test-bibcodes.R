@@ -155,6 +155,7 @@ test_that("normalize_isbn_10() succeeds properly", {
   expect_equal(normalize_isbn_10(c("513213012491540x", "012491540x", NA), aggressive=FALSE),
                c(NA, "012491540X", NA))
   expect_equal(normalize_isbn_10(NA), as.character(NA))
+  expect_equal(normalize_isbn_10("0124915401"), NA_character_)
 })
 
 # ------------------------------------------ #
@@ -261,6 +262,7 @@ test_that("normalize_isbn_13() succeeds properly", {
   expect_equal(normalize_isbn_13(EX.hairy.isbn.13s, aggressive=FALSE),
                c("9789668197918", "9789668197918", NA, NA, NA, NA, NA))
   expect_equal(normalize_isbn_13(NA), as.character(NA))
+  expect_equal(normalize_isbn_13("9780306406151"), NA_character_)
 })
 
 
@@ -272,7 +274,7 @@ test_that("convert_to_isbn_13() succeeds properly", {
   expect_equal(convert_to_isbn_13(c("012491540X", "9004037810", NA)),
                c("9780124915404", "9789004037816", NA))
   expect_equal(convert_to_isbn_13("0124915401", errors.as.nas=TRUE),
-               c(NA))
+               NA_character_)
   expect_equal(convert_to_isbn_13(NA, errors.as.nas=TRUE),
                as.character(c(NA)))
   expect_equal(convert_to_isbn_13("9780124915404", skip.validity.check=TRUE),
@@ -310,6 +312,7 @@ test_that("normalize_isbn() succeeds properly", {
                  c("9789668197918", "9789668197918", NA, "9770800783",
                    "9781572411579", NA, NA)))
   expect_equal(normalize_isbn(NA), as.character(NA))
+  expect_equal(normalize_isbn("0124915401"), NA_character_)
 })
 
 
@@ -379,6 +382,7 @@ test_that("normalize_issn() works", {
                                 "21335212434561X")),
                c("2434561X", NA, "2434561X", "2434561X"))
   expect_equal(normalize_issn(3785955), "03785955")
+  expect_equal(normalize_issn("12345678"), NA_character_)
   expect_equal(normalize_issn("2434561", pretty=TRUE), "2434-561X")
   expect_equal(normalize_issn(c("2434-561X", "12345678", NA), pretty=TRUE),
                c("2434-561X", NA, NA))

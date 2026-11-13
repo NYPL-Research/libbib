@@ -198,7 +198,7 @@ get_lc_call_first_letter <- function(x, allow.bare=FALSE){
 
   THESEAREVALID <- theinput[, is_valid_lc_call(usersupplied, allow.bare=allow.bare)]
   theinput[THESEAREVALID, thekey:=stringr::str_sub(usersupplied, 1, 1)]
-  theinput[!THESEAREVALID, thekey:=NA]
+  theinput[!THESEAREVALID, thekey:=NA_character_]
   return(theinput[, thekey])
 }
 
@@ -244,7 +244,7 @@ get_all_lc_call_subject_letters <- function(x, allow.bare=FALSE){
 
   THESEAREVALID <- theinput[, is_valid_lc_call(usersupplied, allow.bare=allow.bare)]
   theinput[THESEAREVALID, thekey:=stringr::str_extract(usersupplied, "^[A-Z]+")]
-  theinput[!THESEAREVALID, thekey:=NA]
+  theinput[!THESEAREVALID, thekey:=NA_character_]
   return(theinput[, thekey])
 }
 
