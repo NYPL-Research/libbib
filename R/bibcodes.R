@@ -377,7 +377,8 @@ check_isbn_13_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRU
 #' Return TRUE if valid ISBN 13
 #'
 #' Takes a string representation of an ISBN 13 verifies that it is valid.
-#' An ISBN 13 is valid if it is a 13 digit string and the check digit matches
+#' An ISBN 13 is valid if it is a 13 digit string that starts with 978 or 979
+#' and the check digit matches
 #'
 #' @param x A string of 13
 #' @param allow.hyphens A logical indicating whether the hyphen
@@ -412,6 +413,7 @@ is_valid_isbn_13 <- function(x, allow.hyphens=TRUE){
   if(allow.hyphens)
     x <- gsub("-", "", x, fixed=TRUE)
   where.bad <- !grepl(REGEX.ISBN.13, x, perl=TRUE) & !is.na(x)
+  where.bad <- where.bad | (!grepl("^97[89]", x) & !is.na(x))
   x[where.bad] <- NA
   ret <- ifelse(check_isbn_13_check_digit(x, errors.as.false=TRUE), TRUE, FALSE)
   ret[is.na(x)] <- NA

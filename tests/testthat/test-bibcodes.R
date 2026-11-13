@@ -223,6 +223,7 @@ test_that("check_isbn_13_check_digit() succeeds properly", {
                FALSE)
   expect_equal(check_isbn_13_check_digit(NA, errors.as.false = FALSE), NA)
   expect_equal(check_isbn_13_check_digit(c(NA, NA)), c(NA, NA))
+  expect_equal(check_isbn_13_check_digit("1234567890128"), TRUE)
 })
 
 # check_isbn_13_check_digit fails properly
@@ -256,6 +257,10 @@ test_that("is_valid_isbn_13() succeeds properly", {
   expect_equal(is_valid_isbn_13("978-0-306-40615-7", allow.hyphens=FALSE), FALSE)
   expect_equal(is_valid_isbn_13(NA), NA)
   expect_equal(is_valid_isbn_13(c(NA, NA)), c(NA, NA))
+  expect_equal(is_valid_isbn_13("9791090636071"), TRUE)
+  expect_equal(is_valid_isbn_13("1234567890128"), FALSE)
+  expect_equal(is_valid_isbn_13(c("9780306406157", "1234567890128", NA)),
+               c(TRUE, FALSE, NA))
 })
 
 test_that("is_valid_isbn_13() fails properly", {
@@ -274,6 +279,7 @@ test_that("normalize_isbn_13() succeeds properly", {
                c("9789668197918", "9789668197918", NA, NA, NA, NA, NA))
   expect_equal(normalize_isbn_13(NA), as.character(NA))
   expect_equal(normalize_isbn_13("9780306406151"), NA_character_)
+  expect_equal(normalize_isbn_13("1234567890128"), NA_character_)
 })
 
 
@@ -341,6 +347,10 @@ test_that("normalize_isbn() succeeds properly", {
                c("0080134106", "0671212672"))
   expect_equal(normalize_isbn("0306406152 (deluxe)", aggressive=FALSE),
                "0306406152")
+  expect_equal(normalize_isbn("3652036395 (v. 123)"), "3652036395")
+  expect_equal(normalize_isbn("3652036395 (v. 123)", aggressive=FALSE),
+               NA_character_)
+  expect_equal(normalize_isbn("0195209206 (pbk.) : $6.95"), "0195209206")
 })
 
 

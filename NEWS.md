@@ -56,6 +56,14 @@ where the formatting is better.**
     `normalize_isbn("0195209206 (Oxford University Press)")` returned
     "195209206X". An "x" that directly follows a letter is now ignored.
 
+12. `is_valid_isbn_13` now requires an ISBN 13 to start with 978 or 979.
+    Previously, any 13 digits with a matching check digit were accepted,
+    which meant that `normalize_isbn` (and `normalize_isbn_13`) could
+    return a 13 digit number that is not an ISBN when an ISBN 10 was
+    followed by other digits; for example,
+    `normalize_isbn("3652036395 (v. 123)")` returned "3652036395123".
+    `check_isbn_13_check_digit` is unchanged.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

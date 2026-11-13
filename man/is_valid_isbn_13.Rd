@@ -18,7 +18,8 @@ Returns TRUE if checks pass, FALSE if not, and NA if NA
 }
 \description{
 Takes a string representation of an ISBN 13 verifies that it is valid.
-An ISBN 13 is valid if it is a 13 digit string and the check digit matches
+An ISBN 13 is valid if it is a 13 digit string that starts with 978 or 979
+and the check digit matches
 }
 \details{
 This function can be used as a predicate in \code{assertr}'s
