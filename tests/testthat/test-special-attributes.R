@@ -133,6 +133,18 @@ test_that("fread_plus_date() tolerates regex characters in the path", {
                as.Date("2021-05-08"))
 })
 
+test_that("fread_plus_date() tolerates glob characters in the path", {
+  make_example_file("brackets-in-name", "data[1]-2021-05-08.csv")
+  expect_equal(get_date_read("brackets-in-name", "data[1].csv"),
+               as.Date("2021-05-08"))
+  expect_equal(get_date_read("brackets-in-name", "data[1]-2021-05-08.csv"),
+               as.Date("2021-05-08"))
+
+  make_example_file("report [final]", "iris-2021-05-08.csv")
+  expect_equal(get_date_read("report [final]", "iris.csv"),
+               as.Date("2021-05-08"))
+})
+
 test_that("fread_plus_date() rejects file names with no extension", {
   make_example_file("no-extension", "iris-2021-05-08")
   expect_error(fread_plus_date(file.path(EX.tmpdir, "no-extension", "iris")),

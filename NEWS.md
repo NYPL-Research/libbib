@@ -36,6 +36,9 @@ where the formatting is better.**
 7. `marc_leader_get_info` no longer returns the record type
    "Manuscript language material" with a trailing space.
 
+8. Fixed a bug in `fread_plus_date` where a file could not be found if
+   its name (or any directory in its path) contained a square bracket.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

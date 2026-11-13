@@ -114,7 +114,10 @@ split_extension <- function(fname){
 # un-exported helper function
 fread_plus_helper <- function(fname){
   pieces <- split_extension(fname)
-  file.match <- Sys.glob(sprintf("%s*%s", pieces[1], pieces[2]))
+  candidates <- list.files(dirname(fname))
+  candidates <- candidates[startsWith(candidates, basename(pieces[1])) &
+                             endsWith(candidates, pieces[2])]
+  file.match <- file.path(dirname(fname), candidates)
   if(length(file.match)==0) stop("no matching filename")
   if(length(file.match)>1){
     tmp <- sprintf("\n  %s", paste(file.match, collapse=", "))
