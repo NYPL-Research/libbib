@@ -9,6 +9,11 @@ where the formatting is better.**
    ISSNs were returned hyphenated (instead of `NA`) and `NA`s were
    returned as "NA-NA".
 
+2. `is_valid_isbn_10`, `is_valid_isbn_13`, `is_valid_issn`,
+   `check_isbn_10_check_digit`, `check_isbn_13_check_digit`, and
+   `check_issn_check_digit` now return a logical `NA` (instead of a
+   character `NA`) when every element of the input is `NA`.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

@@ -97,7 +97,7 @@ get_isbn_10_check_digit <- function(x, allow.hyphens=FALSE, errors.as.nas=FALSE)
 #'
 #' @export
 check_isbn_10_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRUE){
-  if(all(is.na(x))) return(as.character(x))
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character")){
     if(errors.as.false)
       return(rep(FALSE, length(x)))
@@ -145,7 +145,7 @@ check_isbn_10_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRU
 #'
 #' @export
 is_valid_isbn_10 <- function(x, allow.hyphens=TRUE, lower.x.allowed=TRUE){
-  if(all(is.na(x))) return(as.character(x))
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character")){
     stop("Input must be a character string")
   }
@@ -341,7 +341,7 @@ get_isbn_13_check_digit <- function(x, allow.hyphens=FALSE, errors.as.nas=FALSE)
 #'
 #' @export
 check_isbn_13_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRUE){
-  if(all(is.na(x))) return(as.character(x))
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character")){
     if(errors.as.false)
       return(rep(FALSE, length(x)))
@@ -383,7 +383,7 @@ check_isbn_13_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRU
 #'
 #' @export
 is_valid_isbn_13 <- function(x, allow.hyphens=TRUE){
-  if(all(is.na(x))) return(as.character(x))
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character")){
     stop("Input must be a character string")
   }
@@ -646,7 +646,7 @@ get_issn_check_digit <- function(x, allow.hyphens=FALSE, errors.as.nas=FALSE){
 #'
 #' @export
 check_issn_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=FALSE){
-  if(all(is.na(x))) return(as.character(x))
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character")){
     if(errors.as.false)
       return(rep(FALSE, length(x)))
@@ -696,7 +696,7 @@ check_issn_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=FALSE)
 #'
 #' @export
 is_valid_issn <- function(x, allow.hyphens=TRUE, lower.x.allowed=TRUE){
-  if(all(is.na(x))) return(as.character(x))
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character")){
     stop("Input must be a character string")
   }

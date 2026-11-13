@@ -84,7 +84,8 @@ test_that("check_isbn_10_check_digit() succeeds properly", {
   expect_equal(check_isbn_10_check_digit("0-124-91540-X"), TRUE)
   expect_equal(check_isbn_10_check_digit("0-124-91540-X", allow.hyphens=FALSE),
                FALSE)
-  expect_equal(check_isbn_10_check_digit(NA, errors.as.false = FALSE), as.character(NA))
+  expect_equal(check_isbn_10_check_digit(NA, errors.as.false = FALSE), NA)
+  expect_equal(check_isbn_10_check_digit(c(NA, NA)), c(NA, NA))
 })
 
 # check_isbn_10_check_digit fails properly
@@ -122,7 +123,8 @@ test_that("is_valid_isbn_10() succeeds properly", {
   expect_equal(is_valid_isbn_10("0-124-91540-X"), TRUE)
   expect_equal(is_valid_isbn_10("0-124-91540-1"), FALSE)
   expect_equal(is_valid_isbn_10("0-124-91540-X", allow.hyphens=FALSE), FALSE)
-  expect_equal(is_valid_isbn_10(NA), as.character(NA))
+  expect_equal(is_valid_isbn_10(NA), NA)
+  expect_equal(is_valid_isbn_10(c(NA, NA)), c(NA, NA))
 })
 
 test_that("is_valid_isbn_10() fails properly", {
@@ -207,7 +209,8 @@ test_that("check_isbn_13_check_digit() succeeds properly", {
   expect_equal(check_isbn_13_check_digit("978-0-306-40615-7"), TRUE)
   expect_equal(check_isbn_13_check_digit("978-0-306-40615-7", allow.hyphens=FALSE),
                FALSE)
-  expect_equal(check_isbn_13_check_digit(NA, errors.as.false = FALSE), as.character(NA))
+  expect_equal(check_isbn_13_check_digit(NA, errors.as.false = FALSE), NA)
+  expect_equal(check_isbn_13_check_digit(c(NA, NA)), c(NA, NA))
 })
 
 # check_isbn_13_check_digit fails properly
@@ -239,7 +242,8 @@ test_that("is_valid_isbn_13() succeeds properly", {
   expect_equal(is_valid_isbn_13("978-0-306-40615-7"), TRUE)
   expect_equal(is_valid_isbn_13("978-0-306-40615-1"), FALSE)
   expect_equal(is_valid_isbn_13("978-0-306-40615-7", allow.hyphens=FALSE), FALSE)
-  expect_equal(is_valid_isbn_13(NA), as.character(NA))
+  expect_equal(is_valid_isbn_13(NA), NA)
+  expect_equal(is_valid_isbn_13(c(NA, NA)), c(NA, NA))
 })
 
 test_that("is_valid_isbn_13() fails properly", {
@@ -346,7 +350,8 @@ test_that("get_issn_check_digit() succeeds properly", {
   expect_equal(check_issn_check_digit(c("03785954", "________", NA),
                                       errors.as.false=TRUE),
                c(FALSE, FALSE, NA))
-  expect_equal(check_issn_check_digit(NA), as.character(NA))
+  expect_equal(check_issn_check_digit(NA), NA)
+  expect_equal(check_issn_check_digit(c(NA, NA)), c(NA, NA))
 })
 
 # check_issn_check_digit fails properly
@@ -364,6 +369,8 @@ test_that("is_valid_issn() works", {
   expect_equal(is_valid_issn("2434-561X"), TRUE)
   expect_equal(is_valid_issn(c("2434-561X", "2434-5611", "0378-5955", NA)),
                c(TRUE, FALSE, TRUE, NA))
+  expect_equal(is_valid_issn(NA), NA)
+  expect_equal(is_valid_issn(c(NA, NA)), c(NA, NA))
 })
 
 # normalize_issn
