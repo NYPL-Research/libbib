@@ -141,6 +141,7 @@ get_lc_call_subject_classification <- function(x, subclassification=FALSE,
 #'
 #' @export
 is_valid_lc_call <- function(x, allow.bare=FALSE){
+  if(all(is.na(x))) return(as.logical(x))
   if(!methods::is(x, "character"))
     stop("Input must be a character string")
 

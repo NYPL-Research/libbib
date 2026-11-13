@@ -21,6 +21,9 @@ where the formatting is better.**
    `get_all_lc_call_subject_letters` when given a single invalid call
    number.
 
+4. `is_valid_lc_call` now returns `NA` when given a bare `NA` (or a
+   vector of only `NA`s), instead of throwing an error.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column
