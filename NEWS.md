@@ -49,6 +49,13 @@ where the formatting is better.**
     not stripped along with the other non-digit and non-"X" characters.
     For example, `normalize_isbn("|a0195209206")` returned `NA`.
 
+11. Fixed a bug in `normalize_isbn_10`, `normalize_isbn`, `normalize_issn`,
+    and `convert_to_isbn_13` where an "x" in a word after the number was
+    mistaken for a check digit. This could turn a valid number into a
+    different valid number; for example,
+    `normalize_isbn("0195209206 (Oxford University Press)")` returned
+    "195209206X". An "x" that directly follows a letter is now ignored.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

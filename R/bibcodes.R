@@ -213,6 +213,7 @@ normalize_isbn_10 <- function(x, aggressive=TRUE, convert.to.isbn.13=FALSE){
   if(!methods::is(x, "character"))
     x <- as.character(x)
   x <- toupper(x)
+  x <- gsub("(?<=[A-Z])X", "", x, perl=TRUE)
   x <- gsub("[^\\dX]", "", x, perl=TRUE)
   y <- x
   x <- gsub("X(.+$)", "\\1", x, perl=TRUE)
@@ -443,6 +444,7 @@ convert_to_isbn_13 <- function(x, skip.validity.check=FALSE,
     stop("Input must be a character string")
   }
   x <- toupper(x)
+  x <- gsub("(?<=[A-Z])X", "", x, perl=TRUE)
   x <- gsub("[^\\dX]", "", x, perl=TRUE)
   x <- gsub("X(.+$)", "\\1", x, perl=TRUE)
   if(!skip.validity.check){
@@ -561,6 +563,7 @@ normalize_isbn <- function(x, aggressive=TRUE, convert.to.isbn.13=FALSE){
   if(!methods::is(x, "character"))
     x <- as.character(x)
 
+  x <- gsub("(?<=[A-Za-z])[Xx]", "", x, perl=TRUE)
   x <- gsub("[^\\dXx]", "", x, perl=TRUE)
 
   tried <- normalize_isbn_13(x, aggressive=aggressive)
@@ -786,6 +789,7 @@ normalize_issn <- function(x, aggressive=TRUE, pretty=FALSE){
   if(!methods::is(x, "character"))
     x <- as.character(x)
   x <- toupper(x)
+  x <- gsub("(?<=[A-Z])X", "", x, perl=TRUE)
   x <- gsub("[^\\dX]", "", x, perl=TRUE)
   y <- x
   x <- gsub("X(.+$)", "\\1", x, perl=TRUE)

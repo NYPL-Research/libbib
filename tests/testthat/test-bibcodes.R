@@ -159,6 +159,14 @@ test_that("normalize_isbn_10() succeeds properly", {
   expect_equal(normalize_isbn_10("|a0195209206"), "0195209206")
   expect_equal(normalize_isbn_10("0195209206|", aggressive=FALSE),
                "0195209206")
+  expect_equal(normalize_isbn_10("0 8044 2957 X"), "080442957X")
+  expect_equal(normalize_isbn_10("0 8044 2957 X", aggressive=FALSE),
+               "080442957X")
+  expect_equal(normalize_isbn_10("0195209206 (Oxford University Press)"),
+               "0195209206")
+  expect_equal(normalize_isbn_10("0195209206 (Oxford University Press)",
+                                 aggressive=FALSE),
+               "0195209206")
 })
 
 # ------------------------------------------ #
@@ -288,6 +296,12 @@ test_that("convert_to_isbn_13() succeeds properly", {
                                   errors.as.nas=TRUE),
                c("9780124915404", "9789004037816"))
   expect_equal(convert_to_isbn_13("|a012491540X"), "9780124915404")
+  expect_equal(convert_to_isbn_13(c("0195209206 (Oxford University Press)",
+                                    "9004037810"),
+                                  errors.as.nas=TRUE),
+               c("9780195209204", "9789004037816"))
+  expect_equal(convert_to_isbn_13("0080134106 (flexicover)"),
+               "9780080134109")
 
 })
 
@@ -322,6 +336,11 @@ test_that("normalize_isbn() succeeds properly", {
   expect_equal(normalize_isbn("0124915401"), NA_character_)
   expect_equal(normalize_isbn("|a0195209206"), "0195209206")
   expect_equal(normalize_isbn("0195209206|", aggressive=FALSE), "0195209206")
+  expect_equal(normalize_isbn(c("0080134106 (flexicover)",
+                                "0671212672 (thumb-indexed)")),
+               c("0080134106", "0671212672"))
+  expect_equal(normalize_isbn("0306406152 (deluxe)", aggressive=FALSE),
+               "0306406152")
 })
 
 
@@ -399,6 +418,10 @@ test_that("normalize_issn() works", {
                c("2434-561X", NA, "0378-5955"))
   expect_equal(normalize_issn("|a10000054"), "10000054")
   expect_equal(normalize_issn("1000-0054|", aggressive=FALSE), "10000054")
+  expect_equal(normalize_issn("2434 561 X", aggressive=FALSE), "2434561X")
+  expect_equal(normalize_issn("1000-0054 (Excerpta)"), "10000054")
+  expect_equal(normalize_issn("1000-0054 (Excerpta)", aggressive=FALSE),
+               "10000054")
 })
 
 # ------------------------------------------ #
