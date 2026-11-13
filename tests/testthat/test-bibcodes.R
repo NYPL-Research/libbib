@@ -453,6 +453,14 @@ test_that("normalize_lccn() succeeds properly", {
   expect_equal(normalize_lccn("###78890351#"), "78890351")
   expect_equal(normalize_lccn("^^^78890351^"), "78890351")
   expect_equal(normalize_lccn("i was happy for a day in 1975"), NA_character_)
+  expect_equal(normalize_lccn(c("n2001000002", "agr25000003", "sn2001000002")),
+               c("n2001000002", "agr25000003", "sn2001000002"))
+  expect_equal(normalize_lccn("12345abc"), NA_character_)
+  expect_equal(normalize_lccn("123456789"), NA_character_)
+  expect_equal(normalize_lccn("n1234567"), NA_character_)
+  expect_equal(normalize_lccn(c("12345abc", "n 78890351 ", "abc12345", NA)),
+               c(NA, "n78890351", NA, NA))
+  expect_equal(normalize_lccn("75425165/"), "75425165")
 
   # hyphen fails
   expect_equal(normalize_lccn("n78-890351"), "n78890351")
@@ -462,6 +470,9 @@ test_that("normalize_lccn() succeeds properly", {
   expect_equal(normalize_lccn("75-425165//r75"), "75425165")
   expect_equal(normalize_lccn("75-425165//r75", allow.hyphens = FALSE),
                NA_character_)
+  expect_equal(normalize_lccn("85-2a"), NA_character_)
+  expect_equal(normalize_lccn("abc-d12345"), NA_character_)
+  expect_equal(normalize_lccn("75-425165/"), "75425165")
 
   expect_error(normalize_lccn(8675309), "Input must be a character string")
   expect_equal(normalize_lccn(NA), NA_character_)

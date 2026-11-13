@@ -12,6 +12,8 @@ REGEX.ISSN.8.7 <- "^(\\d{7,8}|\\d{7}[xX])$"
 REGEX.ISSN.flex <- "^\\d{7}(x|X|\\d)$"
 REGEX.ISSN <- "^\\d{7}(X|\\d)$"
 
+REGEX.LCCN <- "^([a-z]{0,3}\\d{8}|[a-z]{0,2}\\d{10})$"
+
 
 
 ##############################################
@@ -880,6 +882,10 @@ normalize_issn <- function(x, aggressive=TRUE, pretty=FALSE){
 #' @details Normalization procedure is documented here:
 #' https://www.loc.gov/marc/lccn-namespace.html
 #'
+#' If the result does not have the structure of a normalized LCCN that is
+#' described there (eight to twelve characters, of which the last eight are
+#' digits, and so on), NA is returned.
+#'
 #' This does not include revisions or use "#" as a padding character
 #' The normalized LCCN is not always the same number of characters
 #'
@@ -909,18 +915,9 @@ normalize_lccn <- function(userlccns, allow.hyphens=TRUE){
   userlccns <- stringr::str_replace_all(userlccns, "\\s", "")
   userlccns <- stringr::str_replace_all(userlccns, "#", "")
   userlccns <- stringr::str_replace_all(userlccns, "\\^", "")
-  userlccns <- stringr::str_replace(userlccns, "/.+$", "")
-
-  where.bad <- !stringr::str_detect(userlccns, "\\d")
-  userlccns[where.bad] <- NA
-
-  where.bad <- stringr::str_detect(userlccns, "[a-z]{4,}")
-  userlccns[where.bad] <- NA
+  userlccns <- stringr::str_replace(userlccns, "/.*$", "")
 
   if(allow.hyphens){
-    where.bad <- stringr::str_detect(userlccns, "[^a-z\\d-]")
-    userlccns[where.bad] <- NA
-
     pieces <- stringr::str_split(userlccns, "-")
 
     process_pieces <- function(pieces){
@@ -931,12 +928,9 @@ normalize_lccn <- function(userlccns, allow.hyphens=TRUE){
                               stringr::str_pad(pieces[2], width=6, pad="0")))))
     }
     userlccns <- unlist(lapply(pieces, process_pieces))
-  } else{
-    where.bad <- stringr::str_detect(userlccns, "[^a-z\\d]")
-    userlccns[where.bad] <- NA
   }
 
-  where.bad <- nchar(userlccns)<8 | nchar(userlccns)>12
+  where.bad <- !grepl(REGEX.LCCN, userlccns, perl=TRUE)
   userlccns[where.bad] <- NA
 
   return(userlccns)

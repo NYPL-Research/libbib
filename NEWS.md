@@ -86,6 +86,15 @@ where the formatting is better.**
     for example, `get_dewey_decimal_subject_class("1984")` returned
     "Philosophy and psychology".
 
+17. `normalize_lccn` now returns `NA` for anything that does not have the
+    structure of a normalized LCCN (as described at
+    https://www.loc.gov/marc/lccn-namespace.html). Previously, strings
+    like "12345abc" and "123456789" were returned as if they were valid,
+    and "85-2a" was returned as "8500002a".
+
+18. Fixed a bug in `normalize_lccn` where an LCCN ending in a forward
+    slash (with nothing after it) returned `NA`.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

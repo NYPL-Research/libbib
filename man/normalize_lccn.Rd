@@ -24,6 +24,10 @@ Takes a string representation of an LCCN. Returns a normalized one
 Normalization procedure is documented here:
 https://www.loc.gov/marc/lccn-namespace.html
 
+If the result does not have the structure of a normalized LCCN that is
+described there (eight to twelve characters, of which the last eight are
+digits, and so on), NA is returned.
+
 This does not include revisions or use "#" as a padding character
 The normalized LCCN is not always the same number of characters
 }
