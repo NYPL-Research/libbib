@@ -20,6 +20,15 @@ Returns TRUE if checks pass, FALSE if not, and NA if NA
 Takes a string representation of an ISBN 13 verifies that it is valid.
 An ISBN 13 is valid if it is a 13 digit string and the check digit matches
 }
+\details{
+This function can be used as a predicate in \code{assertr}'s
+\code{assert} function, where it is applied to a whole column at once.
+A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+counts as a violation in \code{assertr} version 3.1.0 and above
+(earlier versions stop with an error). To check that every ISBN 13
+that is present is valid, use, for example,
+\code{verify(DT, is_valid_isbn_13(isbn) | is.na(isbn))}
+}
 \examples{
 
 is_valid_isbn_13("9780306406157")          # TRUE

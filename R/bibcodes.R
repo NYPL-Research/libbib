@@ -133,6 +133,14 @@ check_isbn_10_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRU
 #'                        be treated as valid
 #'                        (default is \code{TRUE})
 #'
+#' @details This function can be used as a predicate in \code{assertr}'s
+#' \code{assert} function, where it is applied to a whole column at once.
+#' A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+#' counts as a violation in \code{assertr} version 3.1.0 and above
+#' (earlier versions stop with an error). To check that every ISBN 10
+#' that is present is valid, use, for example,
+#' \code{verify(DT, is_valid_isbn_10(isbn) | is.na(isbn))}
+#'
 #' @return Returns TRUE if checks pass, FALSE if not, and NA if NA
 #' @examples
 #'
@@ -369,6 +377,14 @@ check_isbn_13_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=TRU
 #' @param allow.hyphens A logical indicating whether the hyphen
 #'                      separator should be allowed
 #'                      (default is \code{TRUE})
+#'
+#' @details This function can be used as a predicate in \code{assertr}'s
+#' \code{assert} function, where it is applied to a whole column at once.
+#' A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+#' counts as a violation in \code{assertr} version 3.1.0 and above
+#' (earlier versions stop with an error). To check that every ISBN 13
+#' that is present is valid, use, for example,
+#' \code{verify(DT, is_valid_isbn_13(isbn) | is.na(isbn))}
 #'
 #' @return Returns TRUE if checks pass, FALSE if not, and NA if NA
 #' @examples
@@ -682,6 +698,14 @@ check_issn_check_digit <- function(x, allow.hyphens=TRUE, errors.as.false=FALSE)
 #'                        a check digit with a lower-case "x" should
 #'                        be treated as valid
 #'                        (default is \code{TRUE})
+#'
+#' @details This function can be used as a predicate in \code{assertr}'s
+#' \code{assert} function, where it is applied to a whole column at once.
+#' A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+#' counts as a violation in \code{assertr} version 3.1.0 and above
+#' (earlier versions stop with an error). To check that every ISSN
+#' that is present is valid, use, for example,
+#' \code{verify(DT, is_valid_issn(issn) | is.na(issn))}
 #'
 #' @return Returns TRUE if checks pass, FALSE if not, and NA if NA
 #' @examples

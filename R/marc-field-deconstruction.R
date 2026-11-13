@@ -73,13 +73,14 @@ marc_leader_get_info <- function(x){
 #' If any date element is "unknown" (contains a "u"), the returned
 #' date is NA. The returned date is always an integer.
 #'
-#' @param x A string (or vector of strings) of LCCNs
+#' @param x A string (or vector of strings) of MARC 008 fields
 #' @param original.pub.date If \code{TRUE} and if applicable,
 #'                          return the original publication date, not
 #'                          the re-issue publication date. (Default
 #'                          is \code{FALSE})
 #' @param include.questionable.dates A logical indicating whether "questionable"
-#'                                   dates should be replaced with \code{NA}.
+#'                                   dates should be kept. If \code{FALSE},
+#'                                   they are replaced with \code{NA}.
 #'                                   Questionable dates are when the "type of
 #'                                   date" in character position 06 is "q".
 #'                                   (default is \code{FALSE})

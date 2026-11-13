@@ -11,7 +11,7 @@ marc_008_get_info(
 )
 }
 \arguments{
-\item{x}{A string (or vector of strings) of LCCNs}
+\item{x}{A string (or vector of strings) of MARC 008 fields}
 
 \item{original.pub.date}{If \code{TRUE} and if applicable,
 return the original publication date, not
@@ -19,7 +19,8 @@ the re-issue publication date. (Default
 is \code{FALSE})}
 
 \item{include.questionable.dates}{A logical indicating whether "questionable"
-dates should be replaced with \code{NA}.
+dates should be kept. If \code{FALSE},
+they are replaced with \code{NA}.
 Questionable dates are when the "type of
 date" in character position 06 is "q".
 (default is \code{FALSE})}

@@ -40,7 +40,11 @@ considered to be anything after the first period in the base name.
 For example, if the file name given is "./my.data/iris.csv.gz", the
 extension is ".csv.gz". This means no period can be present in
 the base file name (after any directories) with the exception of
-the file extension.
+the file extension. The file name must have an extension; an error is
+raised if it does not.
+
+Reading a compressed file (for example, "iris.csv.gz") requires the
+\code{R.utils} package, just as it does with \code{data.table::fread}.
 
 If you call this function with "iris.csv" and there is no file name
 with an ISO 8601 date appended to that file name on your disk, and
@@ -51,13 +55,13 @@ attribute is set to the current date.
 \dontrun{
   # there's a file called "iris-2021-05-08.csv" on disk
   dat <- fread_plus_date("iris.csv")
-  attribute(dat)$lb.date
-  # [1] "2021-05-08
+  attributes(dat)$lb.date
+  # [1] "2021-05-08"
 
   # can also read the full file name
   dat <- fread_plus_date("iris-2021-05-08.csv")
-  attribute(dat)$lb.date
-  # [1] "2021-05-08
+  attributes(dat)$lb.date
+  # [1] "2021-05-08"
 }
 
 }

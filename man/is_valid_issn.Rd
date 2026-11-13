@@ -26,6 +26,15 @@ Takes a string representation of an ISSN verifies that it is valid.
 An ISSN is valid if it is a 8 digit string or a 7 digit string
 with a terminal "X" AND the check digit matches
 }
+\details{
+This function can be used as a predicate in \code{assertr}'s
+\code{assert} function, where it is applied to a whole column at once.
+A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+counts as a violation in \code{assertr} version 3.1.0 and above
+(earlier versions stop with an error). To check that every ISSN
+that is present is valid, use, for example,
+\code{verify(DT, is_valid_issn(issn) | is.na(issn))}
+}
 \examples{
 
 is_valid_issn("2434561X")           # TRUE

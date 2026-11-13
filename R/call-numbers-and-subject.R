@@ -126,8 +126,16 @@ get_lc_call_subject_classification <- function(x, subclassification=FALSE,
 #'                   the letters should be considered valid
 #'                   (default is \code{FALSE})
 #'
+#' @details This function can be used as a predicate in \code{assertr}'s
+#' \code{assert} function, where it is applied to a whole column at once.
+#' A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+#' counts as a violation in \code{assertr} version 3.1.0 and above
+#' (earlier versions stop with an error). To check that every LC call
+#' number that is present is valid, use, for example,
+#' \code{verify(DT, is_valid_lc_call(lccall) | is.na(lccall))}
+#'
 #' @return Returns either TRUE or FALSE based on whether the
-#'         call number is valid
+#'         call number is valid, and NA if NA
 #' @examples
 #'
 #' is_valid_lc_call("Q172.5.E77")

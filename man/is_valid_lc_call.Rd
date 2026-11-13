@@ -15,13 +15,22 @@ the letters should be considered valid
 }
 \value{
 Returns either TRUE or FALSE based on whether the
-        call number is valid
+        call number is valid, and NA if NA
 }
 \description{
 Takes a string representation of a Library of Congress
 call number and returns either TRUE or FALSE based on
 whether or not the input fits the canonical LC Call
 Number pattern
+}
+\details{
+This function can be used as a predicate in \code{assertr}'s
+\code{assert} function, where it is applied to a whole column at once.
+A missing value (\code{NA}) yields \code{NA}, which \code{assert}
+counts as a violation in \code{assertr} version 3.1.0 and above
+(earlier versions stop with an error). To check that every LC call
+number that is present is valid, use, for example,
+\code{verify(DT, is_valid_lc_call(lccall) | is.na(lccall))}
 }
 \examples{
 
