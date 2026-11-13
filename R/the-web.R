@@ -146,6 +146,9 @@ worldcat_permalink_from_isbn <- function(x, normalize=TRUE){
 #' @details
 #' No validity check on the URL is performed
 #'
+#' All whitespace is removed from the OCLC numbers. If anything other than
+#' digits remains (or if nothing remains), NA is returned.
+#'
 #' @return Worldcat permalinks using the OCLC numbers
 #'
 #' @examples
@@ -163,6 +166,7 @@ worldcat_permalink_from_oclc_number <- function(x){
   if(!methods::is(x, "character"))
     stop("Input must be a character string")
   x <- stringr::str_replace_all(x, "\\s", "")
+  x[!grepl("^[0-9]+$", x)] <- NA
   ifelse(is.na(x), NA_character_,
          sprintf("http://www.worldcat.org/oclc/%s", x))
 }

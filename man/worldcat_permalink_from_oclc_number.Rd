@@ -18,6 +18,9 @@ to the WorldCat catalog entries using those OCLC numbers
 }
 \details{
 No validity check on the URL is performed
+
+All whitespace is removed from the OCLC numbers. If anything other than
+digits remains (or if nothing remains), NA is returned.
 }
 \examples{
 

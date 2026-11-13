@@ -99,6 +99,10 @@ where the formatting is better.**
     `NA`s when given a bare `NA` (or a vector of only `NA`s), instead of
     throwing an error.
 
+20. `worldcat_permalink_from_oclc_number` now returns `NA` for anything
+    that is not made up of only digits (after whitespace is removed).
+    Previously, a link was made out of any string, including an empty one.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

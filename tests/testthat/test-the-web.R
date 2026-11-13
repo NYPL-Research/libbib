@@ -74,6 +74,15 @@ test_that("worldcat_permalink_from_oclc_number() works", {
   7"), "http://www.worldcat.org/oclc/7338897")
   expect_error(worldcat_permalink_from_oclc_number(123456789),
                "Input must be a character string")
+  expect_equal(worldcat_permalink_from_oclc_number(" 1005106045 "),
+               "http://www.worldcat.org/oclc/1005106045")
+  expect_equal(worldcat_permalink_from_oclc_number("garbage"), NA_character_)
+  expect_equal(worldcat_permalink_from_oclc_number(""), NA_character_)
+  expect_equal(worldcat_permalink_from_oclc_number(c("1005106045", "12a45",
+                                                     "ocm01005106",
+                                                     "(OCoLC)1005106045",
+                                                     "   ", NA)),
+               c("http://www.worldcat.org/oclc/1005106045", NA, NA, NA, NA, NA))
 })
 
 
