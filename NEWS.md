@@ -24,6 +24,15 @@ where the formatting is better.**
 4. `is_valid_lc_call` now returns `NA` when given a bare `NA` (or a
    vector of only `NA`s), instead of throwing an error.
 
+5. Fixed a bug in `fread_plus_date` where a file name given without its
+   date could not be read if the file name (or any directory in its path)
+   contained a character that is special in regular expressions, such
+   as `+`, `(`, or `)`.
+
+6. `fread_plus_date` and `fwrite_plus_date` now stop with an error if
+   given a file name with no extension. Previously, `fwrite_plus_date`
+   would write a file with "NA" at the end of its name.
+
 # libbib 1.6.4
 
 1. Bug fix in `dt_counts_and_percents` wherein if the group by column

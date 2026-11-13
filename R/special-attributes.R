@@ -104,8 +104,8 @@ split_extension <- function(fname){
   pieces <- stringr::str_split(basepart, "\\.", n=2)
   before_ext <- pieces[[1]][1]
   after_ext <- pieces[[1]][2]
-  if(!is.na(after_ext)) after_ext <- sprintf(".%s", after_ext)
-  if(is.na(before_ext) & is.na(after_ext)) stop("couldn't split extension")
+  if(is.na(after_ext)) stop("file name must have an extension")
+  after_ext <- sprintf(".%s", after_ext)
   c(sprintf("%s%s", dirpart, before_ext), after_ext)
 }
 
@@ -121,8 +121,11 @@ fread_plus_helper <- function(fname){
     stop("more than one matching file: ", tmp)
   }
   # will use the native pipe operator when everone uses > R v4.1
-  plus.part <- stringr::str_replace(file.match, sprintf("^%s\\D*", pieces[1]), "")
-  plus.part <- stringr::str_replace(plus.part,  sprintf("\\D*%s$", pieces[2]), "")
+  base.match <- basename(file.match)
+  plus.part <- stringr::str_sub(base.match, nchar(basename(pieces[1]))+1,
+                                nchar(base.match)-nchar(pieces[2]))
+  plus.part <- stringr::str_replace(plus.part, "^\\D*", "")
+  plus.part <- stringr::str_replace(plus.part, "\\D*$", "")
 
   list(matching_filename=file.match,
        given_filename=fname,
